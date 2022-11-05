@@ -1,0 +1,22 @@
+[package]
+name = "CrustaceanInstaller"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+eframe = "0.19.0"
+dirs = "4.0.0"
+native-dialog = {version = "0.6.3", features = ["windows_dpi_awareness", "windows_visual_styles"]}
+system_uri =  { git = "https://github.com/o7Moon/system_uri" }
+reqwest = {version = "*", features = ["blocking"]}
+zip = "0.5"
+zip-extensions = "0.6"
+platform-dirs = "0.3.0"
+
+[profile.release]
+strip = true
+opt-level = "z" 
+lto = true
+panic = "abort"
