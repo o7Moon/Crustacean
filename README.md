@@ -30,4 +30,4 @@ Mostly for the crab pun, but other reasons include:
  - it was a good project for starting out with rust
 
 ### Why does this use a custom `system_uri` rather than the official crate?
-The official crate is 5 years old and no longer compiles. There is a fork with updated deps which does successfully compile to linux, but it still wouldn't compile to windows, so I made a fork of my own and fixed tthe breaking changes.
+The official crate is 5 years old and no longer compiles. There is a fork with updated deps which does successfully compile to linux, but it still wouldn't compile to windows, so I made a fork of my own and fixed the breaking changes.
