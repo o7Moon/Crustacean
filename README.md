@@ -17,17 +17,17 @@ Crustacean is a simple and easy to use mod installer for Crab Game.
  - if you want to create an install link for your mod, the format looks like this: `crustacean://installMod/link/to/your/mod.dll`.
 
 # FAQ:
-Q: I tried using this on linux, but mods still dont seem to run.
-A: You need to run in proton and enable the wine dll override for BepInEx: (https://docs.bepinex.dev/articles/advanced/proton_wine.html). In the future the installer will probably do this for you.
+### I tried using this on linux, but mods still dont seem to run.
+You need to run in proton and enable the wine dll override for BepInEx: (https://docs.bepinex.dev/articles/advanced/proton_wine.html). In the future the installer will probably do this for you.
 
-Q: Why "Crustacean"?
-A: Crab Game + Rust = _
+### Why "Crustacean"?
+Crab Game + Rust = _
 
-Q: Why Rust?
-A: Mostly for the crab pun, but other reasons include:
+### Why Rust?
+Mostly for the crab pun, but other reasons include:
  - easy cross-compiling
  - the `egui` Immediate-Mode gui library
  - it was a good project for starting out with rust
 
-Q: Why does this use a custom `system_uri` rather than the official crate?
-A: the official crate is 5 years old and no longer compiles. There is a fork with updated deps which does successfully compile to linux, but it still wouldn't compile to windows, so I made a fork of my own and fixed tthe breaking changes.
+### Why does this use a custom `system_uri` rather than the official crate?
+The official crate is 5 years old and no longer compiles. There is a fork with updated deps which does successfully compile to linux, but it still wouldn't compile to windows, so I made a fork of my own and fixed tthe breaking changes.
