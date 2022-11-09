@@ -15,7 +15,10 @@ use egui::{
     Id,
     Sense
 };
-use std::path::PathBuf;
+use std::path::{
+    PathBuf,
+    Path
+};
 use dirs::home_dir;
 use native_dialog::FileDialog;
 use system_uri;
@@ -296,6 +299,10 @@ fn downloadAndInstallMod(gamePath: String, url: String, filename: String){
 }
 
 fn installBepinex(path: &String) {
+    if Path::new(path).join("BepInEx").exists() {
+        println!("Crustacean: bepinex exists, skipping download");
+        return;
+    }
     let client = reqwest::blocking::Client::new();
     let mut response = client.get(bepinexUrl)
         .send().expect("failed to fetch bepinex zip");
