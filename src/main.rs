@@ -20,6 +20,7 @@ use dirs::home_dir;
 use native_dialog::FileDialog;
 use system_uri;
 use reqwest::blocking;
+use zip::ZipArchive;
 use zip_extensions::read;
 use std::io::Cursor;
 use std::fs::{File,create_dir,OpenOptions,create_dir_all,write};
@@ -27,21 +28,11 @@ use std::io::{Read,Write};
 
 const bepinexUrl: &str = "https://builds.bepinex.dev/projects/bepinex_be/577/BepInEx_UnityIL2CPP_x64_ec79ad0_6.0.0-be.577.zip";
 
-const officialModNames: &[&str] = &[
-    "MapMod",
-    "PracticePlus",
-    "DebugMenu"
-];
-
-const officialModUrls: &[&str] = &[
-    "https://github.com/o7Moon/CrabGame.MapMod/releases/download/v0.6.3/MapMod.dll",
-    "https://github.com/o7Moon/CrabGame.PracticePlus/releases/download/v1.0/practicePlus.dll",
-    "https://github.com/o7Moon/CrabGame.DebugMenu/releases/download/1.0/DebugMenu.dll"
-];
-
 struct BepInstaller {
     installPathText: String,
-    officialModsChecked: [bool;officialModUrls.len()]
+    officialModNames: Vec<String>,
+    officialModUrls: Vec<String>,
+    officialModsChecked: Vec<bool>
 }
 
 fn getSavedInstallPath()->String {
@@ -75,14 +66,33 @@ fn readConfigFile()->String {
 impl Default for BepInstaller {
     fn default()->Self{
         if cfg!(target_os = "windows") {
-            return Self {installPathText: getSavedInstallPath(), officialModsChecked: [false; officialModUrls.len()]}
+            return Self {installPathText: getSavedInstallPath(), officialModNames: Vec::new(), officialModUrls: Vec::new(), officialModsChecked: Vec::new()}
         } else if cfg!(target_os = "linux"){
             let home = home_dir();
             if let Some(home_dir) = home {
-                return Self {installPathText: getSavedInstallPath(), officialModsChecked: [false; officialModUrls.len()]}
+                return Self {installPathText: getSavedInstallPath(), officialModNames: Vec::new(), officialModUrls: Vec::new(), officialModsChecked: Vec::new()}
             }
         } 
-        Self {installPathText: "".to_owned(), officialModsChecked: [false; officialModUrls.len()]}
+        Self {installPathText: "".to_owned(), officialModNames: Vec::new(), officialModUrls: Vec::new(), officialModsChecked: Vec::new()}
+    }
+}
+
+impl BepInstaller {
+    fn new()->Self{
+        let mut out = Self::default();
+        let client = reqwest::blocking::Client::new();
+        let mut response = client.get("https://raw.githubusercontent.com/o7Moon/Crustacean/main/officialModsList")
+            .send().expect("failed to download mod list");
+        let mut content: String = String::new();
+        response.read_to_string(&mut content).expect("failed to read response content to string");
+        for line in content.lines() {
+            if line.starts_with("#") {continue}
+            let split = line.split_once("|").unwrap();
+            out.officialModNames.push(split.0.to_owned());
+            out.officialModUrls.push(split.1.to_owned());
+        }
+        out.officialModsChecked.resize(out.officialModNames.len(), false);
+        return out;
     }
 }
 
@@ -175,7 +185,7 @@ fn installBepinexUI(){
         override_text_color: Some(Color32::WHITE),
         ..Default::default()
     };
-    let mut app = BepInstaller::default();
+    let mut app = BepInstaller::new();
     eframe::run_native("name", options, Box::new(|_cc| {
         _cc.egui_ctx.set_visuals(theme); 
         Box::new(app)
@@ -209,7 +219,7 @@ impl eframe::App for BepInstaller {
             ui.label("Official Mods: ");
             ui.horizontal_wrapped(|ui| {
                 for i in 0..self.officialModsChecked.len() {
-                    ui.checkbox(&mut self.officialModsChecked[i],officialModNames[i]);
+                    ui.checkbox(&mut self.officialModsChecked[i],&self.officialModNames[i]);
                 }
             });
             ui.with_layout(egui::Layout::bottom_up(egui::Align::Center), |ui|{
@@ -220,7 +230,7 @@ impl eframe::App for BepInstaller {
                         if self.officialModsChecked[i] {
                             let pluginsPath: PathBuf = [self.installPathText.to_owned(), "BepInEx".to_owned(), "plugins".to_owned()].iter().collect();
                             create_dir(pluginsPath);
-                            let url = officialModUrls[i].to_owned();
+                            let url = self.officialModUrls[i].to_owned();
                             let filename = url.rsplit_once("/").unwrap().1.to_owned();
                             downloadAndInstallMod(self.installPathText.to_owned(), url, filename)
                         }
@@ -266,9 +276,23 @@ fn downloadAndInstallMod(gamePath: String, url: String, filename: String){
         .send().expect("failed to download mod");
     let mut content: Vec<u8> = Vec::new();
     response.read_to_end(&mut content);
-    let path: PathBuf = [gamePath,"BepInEx".to_owned(),"plugins".to_owned(),filename].iter().collect();
-    let mut file = File::create(path).expect("failed to create mod file");
-    file.write_all(&content);
+    
+    let file_extension = filename.rsplit_once(".").unwrap().1;
+    match file_extension {
+        "dll" => {
+            let path: PathBuf = [gamePath,"BepInEx".to_owned(),"plugins".to_owned(),filename].iter().collect();
+            let mut file = File::create(path).expect("failed to create mod file");
+            file.write_all(&content);
+        },
+        "zip" => {
+            let path: PathBuf = [gamePath,"BepInEx".to_owned(),"plugins".to_owned()].iter().collect();
+            let mut archive = ZipArchive::new(Cursor::new(content)).expect("failed to create zip file");
+            archive.extract(path);
+        },
+        _ => {
+            return
+        }
+    }
 }
 
 fn installBepinex(path: &String) {
