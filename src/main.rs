@@ -151,7 +151,7 @@ fn installModUI(url: &str, filename: &str){
         decorated: false,
         transparent: true,
         min_window_size: Some(egui::vec2(320.0,100.0)),
-        max_window_size: Some(egui::vec2(700.0,100.0)),
+        max_window_size: Some(egui::vec2(800.0,100.0)),
         ..Default::default()
     };
     let theme = egui::Visuals {
@@ -180,7 +180,7 @@ fn installBepinexUI(){
         decorated: false,
         transparent: true,
         min_window_size: Some(egui::vec2(320.0,100.0)),
-        max_window_size: Some(egui::vec2(600.0,150.0)),
+        max_window_size: Some(egui::vec2(700.0,150.0)),
         ..Default::default()
     };
     let theme = egui::Visuals {
