@@ -328,8 +328,8 @@ fn custom_window_frame(
             painter.rect(
                 rect.shrink(1.0),
                 20.0,
-                Color32::from_rgb(183, 105, 52),
-                Stroke::new(1.0, Color32::from_rgb(163, 95, 52)),
+                Color32::from_rgb(153, 75, 42),
+                Stroke::new(2.0, Color32::from_rgb(208,109,40)),
             );
             let mut title_bar_rect = {
                 let mut rect = rect;
@@ -338,7 +338,7 @@ fn custom_window_frame(
             };
             painter.rect(
                 title_bar_rect,
-                10.0,
+                5.0,
                 Color32::from_rgb(208,109,40),
                 Stroke::new(1.0,Color32::from_rgb(208,109,40))
             );
