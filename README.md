@@ -15,6 +15,7 @@ Crustacean is a simple and easy to use mod installer for Crab Game.
 
 ## For Mod Developers:
  - if you want to create an install link for your mod, the format looks like this: `crustacean://installMod/link/to/your/mod.dll`.
+ - unfortunately github hates fun and wont let you embed these links in markdown files. You can however have a link that redirects to the crustacean url, with something like tinyurl.
 
 # FAQ:
 ### I tried using this on linux, but mods still dont seem to run.
