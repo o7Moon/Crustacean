@@ -1,6 +1,6 @@
 # lines startinging with # are ignroed
 # format is modname|url, seperated by newlines
-MapMod|https://github.com/o7Moon/CrabGame.MapMod/releases/download/v0.7.1/MapMod.dll
+MapMod|https://github.com/o7Moon/CrabGame.MapMod/releases/download/v0.7.2/MapMod.dll
 PracticePlus|https://github.com/o7Moon/CrabGame.PracticePlus/releases/download/v1.0/practicePlus.dll
 DebugMenu|https://github.com/o7Moon/CrabGame.DebugMenu/releases/download/1.0/DebugMenu.dll
 # Unity Explorer is a few dlls in a zip but the installer will handle unzipping
