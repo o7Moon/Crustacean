@@ -5,11 +5,15 @@ PracticePlus|https://github.com/o7Moon/CrabGame.PracticePlus/releases/download/v
 DebugMenu|https://github.com/o7Moon/CrabGame.DebugMenu/releases/download/1.0/DebugMenu.dll
 # Unity Explorer is a few dlls in a zip but the installer will handle unzipping
 Unity Explorer|https://github.com/sinai-dev/UnityExplorer/releases/download/4.9.0/UnityExplorer.BepInEx.IL2CPP.zip
-CustomCrosshair|https://github.com/o7Moon/CrabGame.CustomCrosshair/releases/download/v1.0/CustomCrosshair.dll
+CustomCrosshair|https://github.com/o7Moon/CrabGame.CustomCrosshair/releases/download/v1.1/CustomCrosshair.dll
 MoonwalkIndicator|https://github.com/o7Moon/CrabGame.MoonwalkIndicator/releases/download/v1.1/MoonwalkIndicator.dll
-MutePlus|https://github.com/o7Moon/CrabGame.MutePlus/releases/download/v1.0/MutePlus.dll
+MutePlus|https://github.com/o7Moon/CrabGame.MutePlus/releases/download/v1.1/MutePlus.dll
 PublicPractice|https://github.com/o7Moon/CrabGame.PublicPractice/releases/download/v1.0/publicPractice.dll
 AntiAntiBepinex|https://github.com/o7Moon/CrabGame.AntiAntiBepinex/releases/download/1.0/AntiAntiBepinex.dll
-HostUtils|https://github.com/o7Moon/CrabGame.HostUtils/releases/download/1.0.0/hostutils.dll
+HostUtils|https://github.com/o7Moon/CrabGame.HostUtils/releases/download/1.0.1/hostutils.dll
 qol-core|https://github.com/o7Moon/qol-core/releases/download/1.0.6/qol-core.dll
 Deathmatch|https://github.com/o7Moon/CrabGame.Deathmatch/releases/download/v1.1.0/Deathmatch.dll
+Obtainable|https://github.com/o7Moon/CrabGame.Obtainable/releases/download/1.0/obtainable.dll
+BanMod|https://github.com/JMac8132/CrabGameBanMod/releases/download/v1.0/BanModV1.0.dll
+QuickChat|https://github.com/o7Moon/CrabGame.QuickChat/releases/download/v1.0/quickchat.dll
+ServesideFilter|https://github.com/o7Moon/CrabGame.ServersideFilter/releases/download/1.0/serversidefilter.dll
